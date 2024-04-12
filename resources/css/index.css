@@ -20,7 +20,7 @@
     }
 
     .fme-code-preview-tab-marker-container{
-        @apply absolute left-0 z-10 w-1/2 h-full p-1 duration-300 ease-out;
+        @apply absolute left-0 z-10 w-1/2 h-full duration-300 ease-out;
     }
 
     .fme-code-preview-tab-marker{
@@ -36,7 +36,7 @@
     }
 
     .fme-code-preview-tab{
-        @apply relative inline-grid items-center justify-center w-auto h-10 grid-cols-2 text-gray-500 bg-gray-100 rounded-lg select-none;
+        @apply relative inline-grid items-center justify-center w-auto h-10 p-1 grid-cols-2 text-gray-500 bg-gray-100 rounded-lg select-none;
     }
 
     .fme-container{

@@ -127,14 +127,14 @@
                         this.$refs.marker.style.height  =   el.offsetHeight + 'px';
                         this.$refs.marker.style.left    =   el.offsetLeft + 'px';
                     }
-                }" x-cloak class="fme-code-preview-tab p-1">
+                }" x-cloak class="fme-code-preview-tab">
                     <button type="button" @click="repositionTabMarker($el); showPreview = false;" class="fme-code-preview-tab-item">
                         {{ __("Code") }}
                     </button>
                     <button type="button" @click="repositionTabMarker($el); showCodePreview();" class="fme-code-preview-tab-item">
                         {{ __("Preview") }}
                     </button>
-                    <div x-ref="marker" class="fme-code-preview-tab-marker-container">
+                    <div x-ref="marker" class="fme-code-preview-tab-marker-container p-1">
                         <div class="fme-code-preview-tab-marker"></div>
                     </div>
             </div>
