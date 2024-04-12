@@ -1,29 +1,33 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "abdelhamiderrahmouni/filament-monaco-editor",
+    "description": "A monaco editor form field for filamentphp.",
     "keywords": [
-        ":vendor_name",
+        "Abdelhamid Errahmouni",
         "laravel",
-        ":package_slug"
+        "filament monaco code editor",
+        "filament monaco editor",
+        "monaco editor",
+        "code editor",
+        "monaco",
+        "filamentphp",
+        "php"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/abdelhamiderrahmouni/filament-monaco-editor",
     "support": {
-        "issues": "https://github.com/:vendor_slug/:package_slug/issues",
-        "source": "https://github.com/:vendor_slug/:package_slug"
+        "issues": "https://github.com/abdelhamiderrahmouni/filament-monaco-editor/issues",
+        "source": "https://github.com/abdelhamiderrahmouni/filament-monaco-editor"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Abdelhamid Errahmouni",
+            "email": "abdelhamid.errahmouni@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
-        "filament/filament": "^3.0",
         "filament/forms": "^3.0",
-        "filament/tables": "^3.0",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
@@ -41,13 +45,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "AbdelhamidErrahmouni\\FilamentMonacoEditor\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "AbdelhamidErrahmouni\\FilamentMonacoEditor\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -67,10 +70,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "AbdelhamidErrahmouni\\FilamentMonacoEditor\\MonacoEditorServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "MonacoEditor": "AbdelhamidErrahmouni\\FilamentMonacoEditor\\Facades\\MonacoEditor"
             }
         }
     },

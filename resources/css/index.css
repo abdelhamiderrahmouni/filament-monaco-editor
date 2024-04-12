@@ -1,1 +1,73 @@
-@import '../../vendor/filament/filament/resources/css/theme.css';
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .fme-wrapper{
+        @apply w-full flex flex-col;
+    }
+
+    .fme-full-screen{
+        @apply border fixed w-screen h-screen top-0 left-0 bg-white overflow-hidden z-[9999];
+    }
+
+    .fme-control-section{
+        @apply flex justify-between p-2;
+    }
+
+    .fme-code-preview-tab-item{
+        @apply relative z-20 inline-flex items-center justify-center h-8 px-3 text-sm font-medium transition-all rounded-md cursor-pointer whitespace-nowrap;
+    }
+
+    .fme-code-preview-tab-marker-container{
+        @apply absolute left-0 z-10 w-1/2 h-full p-1 duration-300 ease-out;
+    }
+
+    .fme-code-preview-tab-marker{
+        @apply w-full h-full bg-white rounded-md shadow-sm;
+    }
+
+    .fme-full-screen-btn{
+        @apply p-2 py-1 rounded focus:ring-0 focus:bg-gray-100;
+    }
+
+    .fme-full-screen-btn-icon{
+        @apply w-4 h-4 text-gray-500;
+    }
+
+    .fme-code-preview-tab{
+        @apply relative inline-grid items-center justify-center w-auto h-10 grid-cols-2 text-gray-500 bg-gray-100 rounded-lg select-none;
+    }
+
+    .fme-container{
+        @apply flex flex-col items-center relative justify-start w-full h-full bg-[#0C1021] min-h-[250px] pt-3;
+    }
+
+    .fme-loader{
+        @apply absolute inset-0 z-20 flex items-center justify-center w-full h-full duration-1000 ease-out;
+    }
+
+    .fme-loader-icon{
+        @apply w-4 h-4 text-gray-400 animate-spin;
+    }
+
+    .fme-element-wrapper{
+        @apply relative z-10 w-full h-full rounded;
+    }
+
+    .fme-element{
+        @apply w-full h-full text-lg;
+    }
+
+    .fme-placeholder{
+        @apply w-full text-sm font-mono absolute z-50 text-gray-500 ml-14 -translate-x-0.5 mt-0.5 left-0 top-0;
+    }
+
+    .fme-preview-wrapper{
+        @apply w-full h-full border rounded bg-gray-50 p-4;
+    }
+
+    .fme-preview{
+        @apply w-full h-full flex;
+    }
+}
