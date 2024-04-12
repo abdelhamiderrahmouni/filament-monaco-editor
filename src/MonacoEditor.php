@@ -17,8 +17,16 @@ class MonacoEditor extends Field
     public string   | Closure     $previewHeadEndContent    = "";
     public string   | Closure     $previewBodyStartContent  = "";
     public string   | Closure     $previewBodyEndContent    = "";
+    public bool     | Closure     $enablePreview            = false;
+    public bool     | Closure     $showFullScreenToggle   = false;
 
-    protected string $view = 'filament-monaco-editor::monaco-editor';
+    protected string $view = 'filament-monaco-editor::filament-monaco-editor';
+
+    public function mount()
+    {
+        $this->enablePreview = config('filament-monaco-editor.general.enable-preview');
+        $this->showFullScreenToggle = config('filament-monaco-editor.general.show-full-screen-toggle');
+    }
 
     /*
      *  Default theme for the editor, change theme from config.
@@ -52,9 +60,9 @@ class MonacoEditor extends Field
      *
      * Show/Hide placeholder text when editor is empty.
      */
-    public function showPlaceholder(bool | Closure $show = true): static
+    public function showPlaceholder(bool | Closure $condition = true): static
     {
-        $this->showPlaceholder = $show;
+        $this->showPlaceholder = $condition;
 
         return $this;
     }
@@ -78,9 +86,9 @@ class MonacoEditor extends Field
      *
      * Show/Hide loader when editor is loading.
      */
-    public function showLoader(bool | Closure $show = true): static
+    public function showLoader(bool | Closure $condition = true): static
     {
-        $this->showLoader = $show;
+        $this->showLoader = $condition;
 
         return $this;
     }
@@ -117,9 +125,9 @@ class MonacoEditor extends Field
      *
      * Enable/Disable automatic layout.
      */
-    public function automaticLayout(bool | Closure $value = true): static
+    public function automaticLayout(bool | Closure $condition = true): static
     {
-        $this->automaticLayout = $value;
+        $this->automaticLayout = $condition;
 
         return $this;
     }
@@ -141,6 +149,20 @@ class MonacoEditor extends Field
     public function previewBodyEndContent(string | Closure $content = ''): static
     {
         $this->previewBodyEndContent = $content;
+
+        return $this;
+    }
+
+    public function enablePreview(bool | Closure $condition = true): static
+    {
+        $this->enablePreview = $condition;
+
+        return $this;
+    }
+
+    public function showFullScreenToggle(bool | Closure $condition = true): static
+    {
+        $this->enableFullScreenToggle = $condition;
 
         return $this;
     }
@@ -195,5 +217,15 @@ class MonacoEditor extends Field
     public function getPreviewBodyEndContent()
     {
         return $this->evaluate($this->previewBodyEndContent);
+    }
+
+    public function getEnablePreview()
+    {
+        return (bool) $this->evaluate($this->enablePreview);
+    }
+
+    public function getShowFullScreenToggle()
+    {
+        return (bool) $this->evaluate($this->enableFullScreenToggle);
     }
 }

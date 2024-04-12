@@ -1,6 +1,10 @@
 <?php
 
 return [
+    "general" => [
+        "enable-preview" => true,
+        "show-full-screen-toggle" => true,
+    ],
     "themes" => [
         "blackboard" => [
             "base" => "vs-dark",
