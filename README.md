@@ -7,7 +7,7 @@
 
 
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package provides a Monaco editor field for [Filamentphp](https://filamentphp.com/).
 
 ## Installation
 
@@ -15,13 +15,6 @@ You can install the package via composer:
 
 ```bash
 composer require abdelhamiderrahmouni/filament-monaco-editor
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="filament-monaco-editor-migrations"
-php artisan migrate
 ```
 
 You can publish the config file with:
@@ -40,29 +33,25 @@ This is the contents of the published config file:
 
 ```php
 return [
-];
-```
-
-## Usage
-
-```php
-$monacoEditor = new AbdelhamidErrahmouni\FilamentMonacoEditor();
-echo $monacoEditor->echoPhrase('Hello, FilamentMonacoEditor!');
-```
-
-## Customization
-You can use your own theme by customizing the themes key in `filament-monaco-editor.php` config file:
-```php
-    return [
+"general" => [
+        "enable-preview" => true,
+        "show-full-screen-toggle" => true,
+        "show-placeholder" => true,
+        "placeholder-text" => "Your code here...",
+        "show-loader" => true,
+        "font-size" => "15px",
+        "line-numbers-min-chars" => true,
+        "automatic-layout" => true,
+        "default-theme" => "blackboard"
+    ],
     "themes" => [
-        "themeName" => [
-            "base" => "vs-dark|vs-light",
-            "inherit" => true|false,
+        "blackboard" => [
+            "base" => "vs-dark",
+            "inherit" => true,
             "rules" => [
-               //... your rules
+                # long list of rules ... 
             ],
             "colors" => [
-                // your colors, the following are an example...
                 "editor.foreground" => "#F8F8F8",
                 "editor.background" => "#0C1021",
                 "editor.selectionBackground" => "#253B76",
@@ -73,6 +62,93 @@ You can use your own theme by customizing the themes key in `filament-monaco-edi
         ]
     ],
 ];
+```
+
+## Usage
+
+You can use this field with minimal configuration like this:
+```php
+MonacoEditor::make('content')
+            ->language('php'),
+```
+
+You can change the theme of the editor by using the `theme` method:
+```php
+->theme('blackboard') # themes should be defined in the config file in the themes array 
+```
+
+Add Scripts and Styles to preview's head element
+```php
+->previewHeadEndContent("<script src='https://cdn.tailwindcss.com'></script><script defer src='https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js'></script>"),
+```
+Add content to the start of the preview's body element
+```php
+->previewBodyStartContent("<div class='bg-red-500'>"),
+```
+
+Add content to the end of the preview's body element
+```php
+->previewBodyEndContent("</div>"),
+```
+
+You can Disable preview code functionality by method or in the config
+```php 
+->enablePreview(false)
+# or
+->disablePreview()
+```
+
+You can show/hide the full screen button by method or in the config
+```php
+->showFullScreenButton(false)
+# or
+->hideFullScreenButton()
+```
+
+Show/Hide The loader
+```php
+->showLoader(false)
+# or
+->hideLoader()
+```
+
+Show/Hide the placeholder
+```php
+->showPlaceholder(false)
+# or
+->hidePlaceholder()
+```
+
+Customize placeholder's text
+```php
+->placeholderText('Your placeholder text')
+```
+change the font-size of the editor
+```php
+->fontSize('14px')
+```
+
+## Customization
+You can use your own theme by customizing the themes array in `filament-monaco-editor.php` config file:
+```php
+"themes" => [
+    "themeName" => [
+        "base" => "vs-dark|vs-light",
+        "inherit" => true|false,
+        "rules" => [
+           //... your rules
+        ],
+        "colors" => [
+            // your colors, the following are an example...
+            "editor.foreground" => "#F8F8F8",
+            "editor.background" => "#0C1021",
+            "editor.selectionBackground" => "#253B76",
+            "editor.lineHighlightBackground" => "#FFFFFF0F",
+            "editorCursor.foreground" => "#FFFFFFA6",
+            "editorWhitespace.foreground" => "#FFFFFF40"
+        ]
+    ]
+],
 ```
 
 ## Testing
@@ -94,6 +170,8 @@ Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
+Thanks to [PinesUI](https://devdojo.com/pines/docs/monaco-editor) for the Monaco editor component 
+and the [DevDojo](https://devdojo.com/) team for their dedication and contribution to open source projects.
 
 - [Abdelhamid Errahmouni](https://github.com/abdelhamiderrahmouni)
 - [All Contributors](../../contributors)
