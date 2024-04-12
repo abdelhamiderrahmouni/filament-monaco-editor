@@ -1,4 +1,4 @@
-# A monaco editor form field.
+# A Monaco Editor form field.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/abdelhamiderrahmouni/filament-monaco-editor.svg?style=flat-square)](https://packagist.org/packages/abdelhamiderrahmouni/filament-monaco-editor)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/abdelhamiderrahmouni/filament-monaco-editor/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/abdelhamiderrahmouni/filament-monaco-editor/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -12,7 +12,6 @@ This package provides a Monaco editor field for [Filamentphp](https://filamentph
 ## Demo
 
 https://github.com/abdelhamiderrahmouni/filament-monaco-editor/assets/26693672/10d48ffb-278a-42a0-8d0b-a10b04e463c4
-
 
 
 ## Installation
