@@ -2,19 +2,15 @@
 
 namespace AbdelhamidErrahmouni\FilamentMonacoEditor;
 
+use AbdelhamidErrahmouni\FilamentMonacoEditor\Testing\TestsMonacoEditor;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentIcon;
-use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use AbdelhamidErrahmouni\FilamentMonacoEditor\Commands\MonacoEditorCommand;
-use AbdelhamidErrahmouni\FilamentMonacoEditor\Testing\TestsMonacoEditor;
 
 class MonacoEditorServiceProvider extends PackageServiceProvider
 {
@@ -47,10 +43,10 @@ class MonacoEditorServiceProvider extends PackageServiceProvider
             static::$name
         );
 
-//        FilamentAsset::registerScriptData(
-//            $this->getScriptData(),
-//            static::$name
-//        );
+        //        FilamentAsset::registerScriptData(
+        //            $this->getScriptData(),
+        //            static::$name
+        //        );
 
         // Testing
         Testable::mixin(new TestsMonacoEditor());

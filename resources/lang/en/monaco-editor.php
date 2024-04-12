@@ -4,5 +4,5 @@
 return [
     'Code' => 'Code',
     'Preview' => 'Preview',
-    'full_screen_btn_label' => 'Full screen button'
+    'full_screen_btn_label' => 'Full screen button',
 ];

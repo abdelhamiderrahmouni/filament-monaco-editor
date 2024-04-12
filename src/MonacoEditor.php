@@ -2,23 +2,34 @@
 
 namespace AbdelhamidErrahmouni\FilamentMonacoEditor;
 
-use Filament\Forms\Components\Field;
 use Closure;
+use Filament\Forms\Components\Field;
 
 class MonacoEditor extends Field
 {
-    public bool     | Closure     $showPlaceholder          = true;
-    public bool     | Closure     $showLoader               = true;
-    public bool     | Closure     $automaticLayout          = true;
-    public int      | Closure     $lineNumbersMinChars      = 3;
-    public string   | Closure     $fontSize                 = '15px';
-    public string   | Closure     $language                 = 'html';
-    public string   | Closure     $placeholderText          = 'Start typing here';
-    public string   | Closure     $previewHeadEndContent    = "";
-    public string   | Closure     $previewBodyStartContent  = "";
-    public string   | Closure     $previewBodyEndContent    = "";
-    public bool     | Closure     $enablePreview            = false;
-    public bool     | Closure     $showFullScreenToggle   = false;
+    public bool | Closure $showPlaceholder = true;
+
+    public bool | Closure $showLoader = true;
+
+    public bool | Closure $automaticLayout = true;
+
+    public int | Closure $lineNumbersMinChars = 3;
+
+    public string | Closure $fontSize = '15px';
+
+    public string | Closure $language = 'html';
+
+    public string | Closure $placeholderText = 'Start typing here';
+
+    public string | Closure $previewHeadEndContent = '';
+
+    public string | Closure $previewBodyStartContent = '';
+
+    public string | Closure $previewBodyEndContent = '';
+
+    public bool | Closure $enablePreview = false;
+
+    public bool | Closure $showFullScreenToggle = false;
 
     protected string $view = 'filament-monaco-editor::filament-monaco-editor';
 
@@ -34,15 +45,14 @@ class MonacoEditor extends Field
     public function editorTheme()
     {
         return json_encode([
-            "base" => config('filament-monaco-editor.themes.blackboard.base'),
-            "inherit" => config('filament-monaco-editor.themes.blackboard.inherit'),
-            "rules" => config('filament-monaco-editor.themes.blackboard.rules'),
-            "colors" => config('filament-monaco-editor.themes.blackboard.colors'),
+            'base' => config('filament-monaco-editor.themes.blackboard.base'),
+            'inherit' => config('filament-monaco-editor.themes.blackboard.inherit'),
+            'rules' => config('filament-monaco-editor.themes.blackboard.rules'),
+            'colors' => config('filament-monaco-editor.themes.blackboard.colors'),
         ], JSON_THROW_ON_ERROR);
     }
 
     /**
-     * @param string|Closure $lang
      * @return $this
      *
      * Set the language for the editor: html|javascript|css|php|vue|...
@@ -55,7 +65,7 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param bool|Closure $show
+     * @param  bool|Closure  $show
      * @return $this
      *
      * Show/Hide placeholder text when editor is empty.
@@ -68,7 +78,6 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param string|Closure $palceholder
      * @return $this
      *
      * Set the placeholder text for the editor.
@@ -81,7 +90,7 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param bool|Closure $show
+     * @param  bool|Closure  $show
      * @return $this
      *
      * Show/Hide loader when editor is loading.
@@ -94,7 +103,6 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param string|Closure $size
      * @return $this
      *
      * Change the font size of the editor's content.
@@ -107,7 +115,6 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param int|Closure $value
      * @return $this
      *
      * Change the line numbers min characters
@@ -120,7 +127,7 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param bool|Closure $value
+     * @param  bool|Closure  $value
      * @return $this
      *
      * Enable/Disable automatic layout.
