@@ -9,6 +9,12 @@
 
 This package provides a Monaco editor field for [Filamentphp](https://filamentphp.com/).
 
+## Demo
+
+https://github.com/abdelhamiderrahmouni/filament-monaco-editor/assets/26693672/10d48ffb-278a-42a0-8d0b-a10b04e463c4
+
+
+
 ## Installation
 
 You can install the package via composer:
