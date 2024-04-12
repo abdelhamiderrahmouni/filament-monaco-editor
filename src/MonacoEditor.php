@@ -18,7 +18,7 @@ class MonacoEditor extends Field
     public string   | Closure     $previewBodyStartContent  = "";
     public string   | Closure     $previewBodyEndContent    = "";
 
-    protected string $view = 'filament-monaco-editor::+___monaco-editor';
+    protected string $view = 'filament-monaco-editor::monaco-editor';
 
     /*
      *  Default theme for the editor, change theme from config.
