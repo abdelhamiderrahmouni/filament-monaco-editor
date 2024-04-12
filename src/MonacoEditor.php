@@ -7,34 +7,31 @@ use Filament\Forms\Components\Field;
 
 class MonacoEditor extends Field
 {
-    public bool | Closure $showPlaceholder = true;
-
-    public bool | Closure $showLoader = true;
-
-    public bool | Closure $automaticLayout = true;
-
-    public int | Closure $lineNumbersMinChars = 3;
-
-    public string | Closure $fontSize = '15px';
-
-    public string | Closure $language = 'html';
-
-    public string | Closure $placeholderText = 'Start typing here';
-
-    public string | Closure $previewHeadEndContent = '';
-
-    public string | Closure $previewBodyStartContent = '';
-
-    public string | Closure $previewBodyEndContent = '';
-
-    public bool | Closure $enablePreview = false;
-
-    public bool | Closure $showFullScreenToggle = false;
+    public bool     | Closure     $showPlaceholder          = true;
+    public bool     | Closure     $showLoader               = true;
+    public bool     | Closure     $automaticLayout          = true;
+    public int      | Closure     $lineNumbersMinChars      = 3;
+    public string   | Closure     $fontSize                 = '15px';
+    public string   | Closure     $language                 = 'html';
+    public string   | Closure     $placeholderText          = 'Start typing here';
+    public string   | Closure     $previewHeadEndContent    = "";
+    public string   | Closure     $previewBodyStartContent  = "";
+    public string   | Closure     $previewBodyEndContent    = "";
+    public bool     | Closure     $enablePreview            = false;
+    public bool     | Closure     $showFullScreenToggle     = false;
+    public string   | Closure     $theme                    = 'blackboard';
 
     protected string $view = 'filament-monaco-editor::filament-monaco-editor';
 
     public function mount()
     {
+        $this->showPlaceholder = config('filament-monaco-editor.general.show-placeholder');
+        $this->placeholderText = config('filament-monaco-editor.general.placeholder-text');
+        $this->showLoader = config('filament-monaco-editor.general.show-loader');
+        $this->fontSize = config('filament-monaco-editor.general.font-size');
+        $this->lineNumbersMinChars = config('filament-monaco-editor.general.line-numbers-min-chars');
+        $this->automaticLayout = config('filament-monaco-editor.general.automatic-layout');
+        $this->theme = config('filament-monaco-editor.general.default-theme');
         $this->enablePreview = config('filament-monaco-editor.general.enable-preview');
         $this->showFullScreenToggle = config('filament-monaco-editor.general.show-full-screen-toggle');
     }
@@ -44,15 +41,20 @@ class MonacoEditor extends Field
      */
     public function editorTheme()
     {
+        if (!isset(config('filament-monaco-editor.themes')[$this->theme])) {
+            throw new \Exception("Theme {$this->theme} not found in config file.");
+        }
+
         return json_encode([
-            'base' => config('filament-monaco-editor.themes.blackboard.base'),
-            'inherit' => config('filament-monaco-editor.themes.blackboard.inherit'),
-            'rules' => config('filament-monaco-editor.themes.blackboard.rules'),
-            'colors' => config('filament-monaco-editor.themes.blackboard.colors'),
+            "base" => config("filament-monaco-editor.themes.{$this->theme}.base"),
+            "inherit" => config("filament-monaco-editor.themes.{$this->theme}.inherit"),
+            "rules" => config("filament-monaco-editor.themes.{$this->theme}.rules"),
+            "colors" => config("filament-monaco-editor.themes.{$this->theme}.colors"),
         ], JSON_THROW_ON_ERROR);
     }
 
     /**
+     * @param string|Closure $lang
      * @return $this
      *
      * Set the language for the editor: html|javascript|css|php|vue|...
@@ -65,7 +67,7 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param  bool|Closure  $show
+     * @param bool|Closure $show
      * @return $this
      *
      * Show/Hide placeholder text when editor is empty.
@@ -80,6 +82,19 @@ class MonacoEditor extends Field
     /**
      * @return $this
      *
+     * Hide the placeholder text when editor is empty.
+     */
+    public function hidePlaceholder(): static
+    {
+        $this->showPlaceholder = false;
+
+        return $this;
+    }
+
+    /**
+     * @param string|Closure $palceholder
+     * @return $this
+     *
      * Set the placeholder text for the editor.
      */
     public function placeholderText(string | Closure $palceholder = ''): static
@@ -90,7 +105,7 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param  bool|Closure  $show
+     * @param bool|Closure $show
      * @return $this
      *
      * Show/Hide loader when editor is loading.
@@ -105,6 +120,19 @@ class MonacoEditor extends Field
     /**
      * @return $this
      *
+     * Hide the loader when editor is loading.
+     */
+    public function hideLoader(): static
+    {
+        $this->showLoader = false;
+
+        return $this;
+    }
+
+    /**
+     * @param string|Closure $size
+     * @return $this
+     *
      * Change the font size of the editor's content.
      */
     public function fontSize(string | Closure $size = '15px'): static
@@ -115,6 +143,7 @@ class MonacoEditor extends Field
     }
 
     /**
+     * @param int|Closure $value
      * @return $this
      *
      * Change the line numbers min characters
@@ -127,7 +156,7 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param  bool|Closure  $value
+     * @param bool|Closure $value
      * @return $this
      *
      * Enable/Disable automatic layout.
@@ -167,9 +196,30 @@ class MonacoEditor extends Field
         return $this;
     }
 
+    public function disablePreview(): static
+    {
+        $this->enablePreview = false;
+
+        return $this;
+    }
+
     public function showFullScreenToggle(bool | Closure $condition = true): static
     {
-        $this->enableFullScreenToggle = $condition;
+        $this->showFullScreenToggle = $condition;
+
+        return $this;
+    }
+
+    public function hideFullScreenButton()
+    {
+        $this->showFullScreenToggle = false;
+
+        return $this;
+    }
+
+    public function theme(string | Closure $name = 'blackboard'): static
+    {
+        $this->theme = $name;
 
         return $this;
     }
@@ -233,6 +283,6 @@ class MonacoEditor extends Field
 
     public function getShowFullScreenToggle()
     {
-        return (bool) $this->evaluate($this->enableFullScreenToggle);
+        return (bool) $this->evaluate($this->showFullScreenToggle);
     }
 }
