@@ -1,16 +1,16 @@
 <?php
 
 return [
-    "general" => [
-        "enable-preview" => true,
-        "show-full-screen-toggle" => true,
-        "show-placeholder" => true,
-        "placeholder-text" => "Your code here...",
-        "show-loader" => true,
-        "font-size" => "15px",
-        "line-numbers-min-chars" => true,
-        "automatic-layout" => true,
-        "default-theme" => "blackboard"
+    'general' => [
+        'enable-preview' => true,
+        'show-full-screen-toggle' => true,
+        'show-placeholder' => true,
+        'placeholder-text' => 'Your code here...',
+        'show-loader' => true,
+        'font-size' => '15px',
+        'line-numbers-min-chars' => true,
+        'automatic-layout' => true,
+        'default-theme' => 'blackboard',
     ],
     'themes' => [
         'blackboard' => [
@@ -109,42 +109,42 @@ return [
                     'token' => 'source.ocaml keyword.operator.symbol.infix.floating-point',
                 ],
                 [
-                    "fontStyle" => "underline",
-                    "token" => "source.ocaml keyword.operator.symbol.prefix.floating-point"
+                    'fontStyle' => 'underline',
+                    'token' => 'source.ocaml keyword.operator.symbol.prefix.floating-point',
                 ],
                 [
-                    "fontStyle" => "underline",
-                    "token" => "source.ocaml constant.numeric.floating-point"
+                    'fontStyle' => 'underline',
+                    'token' => 'source.ocaml constant.numeric.floating-point',
                 ],
                 [
-                    "background" => "ffffff08",
-                    "token" => "text.tex.latex meta.function.environment"
+                    'background' => 'ffffff08',
+                    'token' => 'text.tex.latex meta.function.environment',
                 ],
                 [
-                    "background" => "7a96fa08",
-                    "token" => "text.tex.latex meta.function.environment meta.function.environment"
+                    'background' => '7a96fa08',
+                    'token' => 'text.tex.latex meta.function.environment meta.function.environment',
                 ],
                 [
-                    "foreground" => "fbde2d",
-                    "token" => "text.tex.latex support.function"
+                    'foreground' => 'fbde2d',
+                    'token' => 'text.tex.latex support.function',
                 ],
                 [
-                    "foreground" => "ffffff",
-                    "token" => "source.plist string.unquoted"
+                    'foreground' => 'ffffff',
+                    'token' => 'source.plist string.unquoted',
                 ],
                 [
-                    "foreground" => "ffffff",
-                    "token" => "source.plist keyword.operator"
-                ]
+                    'foreground' => 'ffffff',
+                    'token' => 'source.plist keyword.operator',
+                ],
             ],
-            "colors" => [
-                "editor.foreground" => "#F8F8F8",
-                "editor.background" => "#0C1021",
-                "editor.selectionBackground" => "#253B76",
-                "editor.lineHighlightBackground" => "#FFFFFF0F",
-                "editorCursor.foreground" => "#FFFFFFA6",
-                "editorWhitespace.foreground" => "#FFFFFF40"
-            ]
-        ]
+            'colors' => [
+                'editor.foreground' => '#F8F8F8',
+                'editor.background' => '#0C1021',
+                'editor.selectionBackground' => '#253B76',
+                'editor.lineHighlightBackground' => '#FFFFFF0F',
+                'editorCursor.foreground' => '#FFFFFFA6',
+                'editorWhitespace.foreground' => '#FFFFFF40',
+            ],
+        ],
     ],
 ];
