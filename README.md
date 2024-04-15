@@ -7,7 +7,7 @@
 
 
 
-This package provides a Monaco editor field for [Filamentphp](https://filamentphp.com/).
+This package provides a Monaco editor field for [FilamentPHP](https://filamentphp.com/).
 
 ## Demo
 
