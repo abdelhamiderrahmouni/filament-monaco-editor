@@ -11,7 +11,9 @@ This package provides a Monaco editor field for [Filamentphp](https://filamentph
 
 ## Demo
 
-https://github.com/abdelhamiderrahmouni/filament-monaco-editor/assets/26693672/10d48ffb-278a-42a0-8d0b-a10b04e463c4
+<video width="320" height="240" controls>
+  <source src="https://github.com/abdelhamiderrahmouni/filament-monaco-editor/assets/26693672/10d48ffb-278a-42a0-8d0b-a10b04e463c4" type="video/mp4">
+</video>
 
 
 ## Installation
