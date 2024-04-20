@@ -127,7 +127,7 @@
                         this.$refs.marker.style.height  =   el.offsetHeight + 'px';
                         this.$refs.marker.style.left    =   el.offsetLeft + 'px';
                     }
-                }" x-cloak class="fme-code-preview-tab">
+                }" x-cloak class="fme-code-preview-tab" wire:ignore>
                     <button type="button" @click="repositionTabMarker($el); showPreview = false;" class="fme-code-preview-tab-item">
                         {{ __("Code") }}
                     </button>
@@ -157,7 +157,7 @@
 
                 <!-- Editor -->
                 <div x-show="!monacoLoader" class="fme-element-wrapper">
-                    <div x-ref="monacoEditorElement" class="fme-element"></div>
+                    <div x-ref="monacoEditorElement" class="fme-element" wire:ignore></div>
                     <div x-ref="monacoPlaceholderElement" x-show="monacoPlaceholder" @click="monacoEditorFocus()" :style="'font-size: ' + monacoFontSize" class="fme-placeholder" x-text="monacoPlaceholderText"></div>
                 </div>
             </div>

@@ -56,7 +56,7 @@
     }
 
     .fme-element{
-        @apply w-full h-full text-lg;
+        @apply w-full h-full text-lg max-h-[90vh];
     }
 
     .fme-placeholder{
@@ -64,10 +64,10 @@
     }
 
     .fme-preview-wrapper{
-        @apply w-full h-full border rounded bg-gray-50 p-4;
+        @apply w-full h-full border rounded bg-gray-50 overflow-hidden;
     }
 
     .fme-preview{
-        @apply w-full h-full flex;
+        @apply w-full h-full flex max-h-[90vh] min-h-[80vh];
     }
 }
