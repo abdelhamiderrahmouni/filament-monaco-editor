@@ -157,7 +157,7 @@
 
                 <!-- Editor -->
                 <div x-show="!monacoLoader" class="fme-element-wrapper">
-                    <div x-ref="monacoEditorElement" class="fme-element" wire:ignore></div>
+                    <div x-ref="monacoEditorElement" class="fme-element" wire:ignore style="height: 100%"></div>
                     <div x-ref="monacoPlaceholderElement" x-show="monacoPlaceholder" @click="monacoEditorFocus()" :style="'font-size: ' + monacoFontSize" class="fme-placeholder" x-text="monacoPlaceholderText"></div>
                 </div>
             </div>

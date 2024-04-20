@@ -56,7 +56,7 @@
     }
 
     .fme-element{
-        @apply w-full h-full text-lg max-h-[90vh];
+        @apply w-full h-full text-lg max-h-[90vh] min-h-[80vh];
     }
 
     .fme-placeholder{
