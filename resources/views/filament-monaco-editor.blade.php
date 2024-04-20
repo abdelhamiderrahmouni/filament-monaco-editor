@@ -59,7 +59,7 @@
 
         wrapPreview(value){
             return `<head>{{ $getPreviewHeadEndContent() }}</head>` +
-            `&lt;body class='flex'&gt;` +
+            `&lt;body {{ $getPreviewBodyAttributes() }}&gt;` +
             `{{ $getPreviewBodyStartContent() }}` +
             `${value}` +
             `{{ $getPreviewBodyEndContent() }}` +
