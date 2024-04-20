@@ -164,7 +164,7 @@
 
             <div class="fme-preview-wrapper">
                 <!-- Preview -->
-                <iframe class="fme-preview" :srcdoc="previewContent" x-show="showPreview"></iframe>
+                <iframe class="fme-preview" :srcdoc="previewContent" x-show="showPreview" wire:ignore></iframe>
             </div>
         </div>
     </div>
