@@ -23,6 +23,8 @@ class MonacoEditor extends Field
 
     public string | Closure $previewHeadEndContent = '';
 
+    public array | Closure $previewBodyAttributes = ["class" => ""];
+
     public string | Closure $previewBodyStartContent = '';
 
     public string | Closure $previewBodyEndContent = '';
@@ -183,6 +185,13 @@ class MonacoEditor extends Field
         return $this;
     }
 
+    public function previewBodyAttributes(array | Closure $attributes = ["class" => ""]): static
+    {
+        $this->previewBodyAttributes = $attributes;
+
+        return $this;
+    }
+
     public function previewBodyStartContent(string | Closure $content = ''): static
     {
         $this->previewBodyStartContent = $content;
@@ -272,6 +281,12 @@ class MonacoEditor extends Field
     public function getPreviewHeadEndContent()
     {
         return $this->evaluate($this->previewHeadEndContent);
+    }
+
+    public function getPreviewBodyAttributes()
+    {
+        $attributes = $this->evaluate($this->previewBodyAttributes);
+        return implode(' ', array_map(fn ($key, $value) => "$key=&quot;$value&quot;", array_keys($attributes), $attributes));
     }
 
     public function getPreviewBodyStartContent()

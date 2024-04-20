@@ -88,6 +88,15 @@ Add Scripts and Styles to preview's head element
 ```php
 ->previewHeadEndContent("<script src='https://cdn.tailwindcss.com'></script><script defer src='https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js'></script>"),
 ```
+
+Add attributes to the preview's body element
+```php
+->previewBodyAttributes([
+    'class' => 'bg-red-500',
+    'id' => 'preview-body'
+]),
+```
+
 Add content to the start of the preview's body element
 ```php
 ->previewBodyStartContent("<div class='bg-red-500'>"),
