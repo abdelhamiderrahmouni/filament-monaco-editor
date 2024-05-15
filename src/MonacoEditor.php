@@ -19,7 +19,7 @@ class MonacoEditor extends Field
 
     public string | Closure $language = 'html';
 
-    public string | Closure $placeholderText = 'Start typing here';
+    public string | Closure $placeholderText = 'Your code here...';
 
     public string | Closure $previewHeadEndContent = '';
 
@@ -29,15 +29,15 @@ class MonacoEditor extends Field
 
     public string | Closure $previewBodyEndContent = '';
 
-    public bool | Closure $enablePreview = false;
+    public bool | Closure $enablePreview = true;
 
-    public bool | Closure $showFullScreenToggle = false;
+    public bool | Closure $showFullScreenToggle = true;
 
     public string | Closure $theme = 'blackboard';
 
     protected string $view = 'filament-monaco-editor::filament-monaco-editor';
 
-    public function mount()
+    public function setUp()
     {
         $this->showPlaceholder = config('filament-monaco-editor.general.show-placeholder');
         $this->placeholderText = config('filament-monaco-editor.general.placeholder-text');

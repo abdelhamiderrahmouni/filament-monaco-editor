@@ -8,7 +8,7 @@ return [
         'placeholder-text' => 'Your code here...',
         'show-loader' => true,
         'font-size' => '15px',
-        'line-numbers-min-chars' => true,
+        'line-numbers-min-chars' => 3,
         'automatic-layout' => true,
         'default-theme' => 'blackboard',
     ],
