@@ -37,7 +37,7 @@ class MonacoEditor extends Field
 
     protected string $view = 'filament-monaco-editor::filament-monaco-editor';
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->showPlaceholder = config('filament-monaco-editor.general.show-placeholder');
         $this->placeholderText = config('filament-monaco-editor.general.placeholder-text');
