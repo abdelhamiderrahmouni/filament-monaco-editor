@@ -74,6 +74,11 @@ class MonacoEditor extends Field
      */
     public function language(string | Closure $lang = 'html'): static
     {
+        if ($lang === 'blade' || $lang === 'blade.php') {
+            // Since Monaco does not ship with a Blade language, we rewrite it to HTML to get at least some highlighting.
+            $lang = 'html';
+        }
+
         $this->language = $lang;
 
         return $this;
