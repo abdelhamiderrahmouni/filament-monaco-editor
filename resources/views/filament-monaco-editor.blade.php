@@ -169,4 +169,32 @@
         </div>
     </div>
 
+    @script
+    <script>
+        // Custom Blade directive syntax highlighting
+        function fmeHighlightBlade(value) {
+            // Todo only if language is Blade
+
+            value = value
+                // Define the replacements for all the Blade directives
+                .replace(/@@php/g, '<span class="blade-directive">@@php</span>')
+                .replace(/@@extends/g, '<span class="blade-directive">@@extends</span>')
+                .replace(/@@section/g, '<span class="blade-directive">@@section</span>')
+                .replace(/@@include/g, '<span class="blade-directive">@@include</span>')
+                .replace(/@@endsection/g, '<span class="blade-directive">@@endsection</span>');
+
+            let style = document.createElement('style');
+
+            style.innerHTML = `.blade-directive {
+                /* Define the style for the Blade directives */
+                color: #ec5f67;
+                font-weight: bold;
+            }`;
+
+            value = style.outerHTML + value;
+
+            return value;
+        }
+    </script>
+    @endscript
 </x-dynamic-component>
