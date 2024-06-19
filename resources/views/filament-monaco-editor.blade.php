@@ -169,7 +169,6 @@
         </div>
     </div>
 
-    @script
     <script>
         // Custom Blade directive syntax highlighting
         function fmeHighlightBlade(value) {
@@ -196,5 +195,4 @@
             return value;
         }
     </script>
-    @endscript
 </x-dynamic-component>
