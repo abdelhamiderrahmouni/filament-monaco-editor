@@ -169,6 +169,13 @@
         </div>
     </div>
 
+    <style>
+    .blade-directive {
+        /* Define the style for the Blade directives */
+        color: #ec5f67;
+        font-weight: bold;
+    }
+    </style>
     <script>
         // Custom Blade directive syntax highlighting
         function fmeHighlightBlade(value) {
@@ -181,16 +188,6 @@
                 .replace(/@@section/g, '<span class="blade-directive">@@section</span>')
                 .replace(/@@include/g, '<span class="blade-directive">@@include</span>')
                 .replace(/@@endsection/g, '<span class="blade-directive">@@endsection</span>');
-
-            let style = document.createElement('style');
-
-            style.innerHTML = `.blade-directive {
-                /* Define the style for the Blade directives */
-                color: #ec5f67;
-                font-weight: bold;
-            }`;
-
-            value = style.outerHTML + value;
 
             return value;
         }
