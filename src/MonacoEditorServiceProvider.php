@@ -59,8 +59,8 @@ class MonacoEditorServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-monaco-editor', __DIR__ . '/../resources/dist/components/filament-monaco-editor.js'),
-            Css::make('filament-monaco-editor-styles', __DIR__ . '/../resources/dist/filament-monaco-editor.css'),
-            Js::make('filament-monaco-editor-scripts', __DIR__ . '/../resources/dist/filament-monaco-editor.js'),
+            Css::make('filament-monaco-editor-styles', __DIR__.'/../resources/dist/filament-monaco-editor.css'),
+            Js::make('filament-monaco-editor-scripts', __DIR__.'/../resources/dist/filament-monaco-editor.js'),
         ];
     }
 
