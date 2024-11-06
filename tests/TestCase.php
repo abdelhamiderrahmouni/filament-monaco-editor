@@ -22,7 +22,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'AbdelhamidErrahmouni\\FilamentMonacoEditor\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'AbdelhamidErrahmouni\\FilamentMonacoEditor\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 

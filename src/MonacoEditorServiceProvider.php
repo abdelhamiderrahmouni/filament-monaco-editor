@@ -31,9 +31,7 @@ class MonacoEditorServiceProvider extends PackageServiceProvider
             ->hasViews(static::$viewNamespace);
     }
 
-    public function packageRegistered(): void
-    {
-    }
+    public function packageRegistered(): void {}
 
     public function packageBooted(): void
     {
@@ -49,7 +47,7 @@ class MonacoEditorServiceProvider extends PackageServiceProvider
         //        );
 
         // Testing
-        Testable::mixin(new TestsMonacoEditor());
+        Testable::mixin(new TestsMonacoEditor);
     }
 
     /**
@@ -59,8 +57,8 @@ class MonacoEditorServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-monaco-editor', __DIR__ . '/../resources/dist/components/filament-monaco-editor.js'),
-            Css::make('filament-monaco-editor-styles', __DIR__.'/../resources/dist/filament-monaco-editor.css'),
-            Js::make('filament-monaco-editor-scripts', __DIR__.'/../resources/dist/filament-monaco-editor.js'),
+            Css::make('filament-monaco-editor-styles', __DIR__ . '/../resources/dist/filament-monaco-editor.css'),
+            Js::make('filament-monaco-editor-scripts', __DIR__ . '/../resources/dist/filament-monaco-editor.js'),
         ];
     }
 
