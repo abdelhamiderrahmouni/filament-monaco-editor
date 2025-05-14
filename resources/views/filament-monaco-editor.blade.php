@@ -97,7 +97,8 @@
                 require(['vs/editor/editor.main'], () => {
 
                     monaco.editor.defineTheme('custom', {{ $editorTheme() }});
-                    document.getElementById(monacoId).editor = monaco.editor.create($refs.monacoEditorElement, {
+
+                    const fmeEditor = monaco.editor.create($refs.monacoEditorElement, {
                         value: monacoContent,
                         theme: 'custom',
                         fontSize: monacoFontSize,
@@ -105,6 +106,8 @@
                         automaticLayout: automaticLayout,
                         language: monacoLanguage
                     });
+                    document.getElementById(monacoId).editor = fmeEditor;
+
                     monacoEditor(document.getElementById(monacoId).editor);
                     document.getElementById(monacoId).addEventListener('monaco-editor-focused', (event) => {
                         document.getElementById(monacoId).editor.focus();
@@ -169,4 +172,27 @@
         </div>
     </div>
 
+    <style>
+    .blade-directive {
+        /* Define the style for the Blade directives */
+        color: #ec5f67;
+        font-weight: bold;
+    }
+    </style>
+    <script>
+        // Custom Blade directive syntax highlighting
+        function fmeHighlightBlade(value) {
+            // Todo only if language is Blade
+
+            value = value
+                // Define the replacements for all the Blade directives
+                .replace(/@@php/g, '<span class="blade-directive">@@php</span>')
+                .replace(/@@extends/g, '<span class="blade-directive">@@extends</span>')
+                .replace(/@@section/g, '<span class="blade-directive">@@section</span>')
+                .replace(/@@include/g, '<span class="blade-directive">@@include</span>')
+                .replace(/@@endsection/g, '<span class="blade-directive">@@endsection</span>');
+
+            return value;
+        }
+    </script>
 </x-dynamic-component>
