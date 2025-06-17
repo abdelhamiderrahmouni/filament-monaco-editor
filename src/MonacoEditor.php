@@ -2,6 +2,7 @@
 
 namespace AbdelhamidErrahmouni\FilamentMonacoEditor;
 
+use Exception;
 use Closure;
 use Filament\Forms\Components\Field;
 
@@ -56,7 +57,7 @@ class MonacoEditor extends Field
     public function editorTheme()
     {
         if (! isset(config('filament-monaco-editor.themes')[$this->theme])) {
-            throw new \Exception("Theme {$this->theme} not found in config file.");
+            throw new Exception("Theme {$this->theme} not found in config file.");
         }
 
         return json_encode([
