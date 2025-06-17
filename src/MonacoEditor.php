@@ -2,8 +2,8 @@
 
 namespace AbdelhamidErrahmouni\FilamentMonacoEditor;
 
-use Exception;
 use Closure;
+use Exception;
 use Filament\Forms\Components\Field;
 
 class MonacoEditor extends Field
