@@ -75,6 +75,8 @@ return [
 
 You can use this field with minimal configuration like this:
 ```php
+use AbdelhamidErrahmouni\FilamentMonacoEditor\MonacoEditor;
+
 MonacoEditor::make('content')
             ->language('php'),
 ```
