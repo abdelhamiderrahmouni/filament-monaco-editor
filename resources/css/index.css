@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 @import '../../vendor/filament/support/resources/css/index.css';
 
 @source '../../src/**/*.php';
