@@ -80,6 +80,12 @@
             } else {
                 $el.style.height = '500px';
             }
+            $watch('monacoContent', value => {
+                let editor = document.getElementById(monacoId)?.editor;
+                if (editor) {
+                    editor.setValue(value);
+                }
+            });
         });
 
         if(typeof _amdLoaderGlobal == 'undefined'){
