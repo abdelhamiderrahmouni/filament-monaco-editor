@@ -218,8 +218,16 @@
                         }
 
                         let script = window.__fmeMonacoLoaderScript ||
-                            document.querySelector('script[data-fme-monaco-loader]') ||
-                            document.querySelector(`script[src="${baseUrl}/vs/loader.min.js"]`);
+                            document.querySelector('script[data-fme-monaco-loader]');
+
+                        if (!script) {
+                            for (const candidate of document.querySelectorAll('script')) {
+                                if (candidate.src === `${baseUrl}/vs/loader.min.js`) {
+                                    script = candidate;
+                                    break;
+                                }
+                            }
+                        }
 
                         if (!script) {
                             script = document.createElement('script');
