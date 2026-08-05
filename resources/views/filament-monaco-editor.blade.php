@@ -59,7 +59,9 @@
             monacoEditor(editor) {
                 const element = this.$refs.monacoEditorElement;
 
-                element.__fmeMonacoDisposables?.forEach(disposable => disposable.dispose());
+                if (element.__fmeMonacoDisposables) {
+                    element.__fmeMonacoDisposables.forEach(disposable => disposable.dispose());
+                }
 
                 const disposables = [
                     editor.onDidChangeModelContent(() => {
@@ -78,12 +80,12 @@
 
                 element.__fmeMonacoDisposables = disposables;
                 element.__fmeMonacoOwner = this;
-                this.bladeDecorations = element.__fmeBladeDecorations ?? [];
+                this.bladeDecorations = element.__fmeBladeDecorations || [];
                 this.updateBladeDecorations();
             },
 
             syncEditor(value) {
-                const nextValue = value ?? '';
+                const nextValue = value === null || value === undefined ? '' : value;
 
                 if (this.editor && this.editor.getValue() !== nextValue) {
                     this.editor.setValue(nextValue);
@@ -97,7 +99,9 @@
             },
 
             monacoEditorFocus() {
-                this.editor?.focus();
+                if (this.editor) {
+                    this.editor.focus();
+                }
             },
 
             updateBladeDecorations() {
@@ -145,12 +149,14 @@
             },
 
             showCodePreview() {
-                this.previewContent = this.wrapPreview(this.monacoContent ?? '');
+                this.previewContent = this.wrapPreview(
+                    this.monacoContent === null || this.monacoContent === undefined ? '' : this.monacoContent
+                );
                 this.showPreview = true;
             },
 
             loadMonaco() {
-                if (window.monaco?.editor) {
+                if (window.monaco && window.monaco.editor) {
                     return Promise.resolve(window.monaco);
                 }
 
@@ -158,7 +164,7 @@
                     window.__fmeMonacoPromise = new Promise((resolve, reject) => {
                         const baseUrl = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min';
                         const loadEditor = () => {
-                            if (window.monaco?.editor) {
+                            if (window.monaco && window.monaco.editor) {
                                 resolve(window.monaco);
 
                                 return;
@@ -170,10 +176,9 @@
                                 `importScripts('${baseUrl}/vs/base/worker/workerMain.min.js');`,
                             ], { type: 'text/javascript' }));
 
-                            window.MonacoEnvironment = {
-                                ...window.MonacoEnvironment,
+                            window.MonacoEnvironment = Object.assign({}, window.MonacoEnvironment || {}, {
                                 getWorkerUrl: () => worker,
-                            };
+                            });
 
                             window.require(['vs/editor/editor.main'], () => resolve(window.monaco), reject);
                         };
@@ -227,7 +232,7 @@
                     } else {
                         monaco.editor.defineTheme(this.monacoTheme, this.monacoThemeDefinition);
                         this.editor = monaco.editor.create(element, {
-                            value: this.monacoContent ?? '',
+                            value: this.monacoContent === null || this.monacoContent === undefined ? '' : this.monacoContent,
                             theme: this.monacoTheme,
                             fontSize: Number.parseInt(this.monacoFontSize, 10) || 15,
                             lineNumbersMinChars: this.lineNumbersMinChars,
@@ -250,7 +255,7 @@
                 this.destroyed = true;
                 const element = this.$refs.monacoEditorElement;
 
-                if (element?.__fmeMonacoOwner && element.__fmeMonacoOwner !== this) {
+                if (element && element.__fmeMonacoOwner && element.__fmeMonacoOwner !== this) {
                     return;
                 }
 
@@ -262,9 +267,14 @@
                     return;
                 }
 
-                element.__fmeMonacoDisposables?.forEach(disposable => disposable.dispose());
-                this.editor?.deltaDecorations(this.bladeDecorations, []);
-                this.editor?.dispose();
+                if (element.__fmeMonacoDisposables) {
+                    element.__fmeMonacoDisposables.forEach(disposable => disposable.dispose());
+                }
+
+                if (this.editor) {
+                    this.editor.deltaDecorations(this.bladeDecorations, []);
+                    this.editor.dispose();
+                }
                 delete element.__fmeMonacoDisposables;
                 delete element.__fmeMonacoEditor;
                 delete element.__fmeMonacoOwner;
