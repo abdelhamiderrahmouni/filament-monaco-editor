@@ -10,6 +10,9 @@ return [
         'font-size' => '15px',
         'line-numbers-min-chars' => 3,
         'automatic-layout' => true,
+        'height' => '500px',
+        'min-height' => '80vh',
+        'max-height' => '90vh',
         'default-theme' => 'blackboard',
     ],
     'themes' => [

@@ -15,6 +15,12 @@ class MonacoEditor extends Field
 
     public int | Closure $lineNumbersMinChars = 3;
 
+    public string | Closure $height = '500px';
+
+    public string | Closure $minHeight = '80vh';
+
+    public string | Closure $maxHeight = '90vh';
+
     public string | Closure $fontSize = '15px';
 
     public string | Closure $language = 'html';
@@ -45,6 +51,9 @@ class MonacoEditor extends Field
         $this->fontSize = config('filament-monaco-editor.general.font-size');
         $this->lineNumbersMinChars = config('filament-monaco-editor.general.line-numbers-min-chars');
         $this->automaticLayout = config('filament-monaco-editor.general.automatic-layout');
+        $this->height = config('filament-monaco-editor.general.height', '500px');
+        $this->minHeight = config('filament-monaco-editor.general.min-height', '80vh');
+        $this->maxHeight = config('filament-monaco-editor.general.max-height', '90vh');
         $this->theme = config('filament-monaco-editor.general.default-theme');
         $this->enablePreview = config('filament-monaco-editor.general.enable-preview');
         $this->showFullScreenToggle = config('filament-monaco-editor.general.show-full-screen-toggle');
@@ -53,18 +62,25 @@ class MonacoEditor extends Field
     /*
      *  Default theme for the editor, change theme from config.
      */
-    public function editorTheme()
+    public function editorTheme(): string
     {
-        if (! isset(config('filament-monaco-editor.themes')[$this->theme])) {
-            throw new \Exception("Theme {$this->theme} not found in config file.");
+        return json_encode($this->getEditorTheme(), JSON_THROW_ON_ERROR);
+    }
+
+    public function getEditorTheme(): array
+    {
+        $theme = (string) $this->evaluate($this->theme);
+
+        if (! isset(config('filament-monaco-editor.themes')[$theme])) {
+            throw new \Exception("Theme {$theme} not found in config file.");
         }
 
-        return json_encode([
-            'base' => config("filament-monaco-editor.themes.{$this->theme}.base"),
-            'inherit' => config("filament-monaco-editor.themes.{$this->theme}.inherit"),
-            'rules' => config("filament-monaco-editor.themes.{$this->theme}.rules"),
-            'colors' => config("filament-monaco-editor.themes.{$this->theme}.colors"),
-        ], JSON_THROW_ON_ERROR);
+        return [
+            'base' => config("filament-monaco-editor.themes.{$theme}.base"),
+            'inherit' => config("filament-monaco-editor.themes.{$theme}.inherit"),
+            'rules' => config("filament-monaco-editor.themes.{$theme}.rules"),
+            'colors' => config("filament-monaco-editor.themes.{$theme}.colors"),
+        ];
     }
 
     /**
@@ -74,9 +90,8 @@ class MonacoEditor extends Field
      */
     public function language(string | Closure $lang = 'html'): static
     {
-        if ($lang === 'blade' || $lang === 'blade.php') {
-            // Since Monaco does not ship with a Blade language, we rewrite it to HTML to get at least some highlighting.
-            $lang = 'html';
+        if (is_string($lang) && in_array(strtolower($lang), ['blade', 'blade.php'], true)) {
+            $lang = 'blade';
         }
 
         $this->language = $lang;
@@ -85,7 +100,6 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param  bool|Closure  $show
      * @return $this
      *
      * Show/Hide placeholder text when editor is empty.
@@ -122,7 +136,6 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param  bool|Closure  $show
      * @return $this
      *
      * Show/Hide loader when editor is loading.
@@ -171,7 +184,6 @@ class MonacoEditor extends Field
     }
 
     /**
-     * @param  bool|Closure  $value
      * @return $this
      *
      * Enable/Disable automatic layout.
@@ -179,6 +191,27 @@ class MonacoEditor extends Field
     public function automaticLayout(bool | Closure $condition = true): static
     {
         $this->automaticLayout = $condition;
+
+        return $this;
+    }
+
+    public function height(string | Closure $height = '500px'): static
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    public function minHeight(string | Closure $height = '80vh'): static
+    {
+        $this->minHeight = $height;
+
+        return $this;
+    }
+
+    public function maxHeight(string | Closure $height = '90vh'): static
+    {
+        $this->maxHeight = $height;
 
         return $this;
     }
@@ -248,9 +281,9 @@ class MonacoEditor extends Field
 
     // -----------------------
 
-    public function getLanguage()
+    public function getLanguage(): string
     {
-        return $this->evaluate($this->language);
+        return (string) $this->evaluate($this->language);
     }
 
     public function getShowPlaceholder()
@@ -283,16 +316,39 @@ class MonacoEditor extends Field
         return (bool) $this->evaluate($this->automaticLayout);
     }
 
+    public function getHeight(): string
+    {
+        return (string) $this->evaluate($this->height);
+    }
+
+    public function getMinHeight(): string
+    {
+        return (string) $this->evaluate($this->minHeight);
+    }
+
+    public function getMaxHeight(): string
+    {
+        return (string) $this->evaluate($this->maxHeight);
+    }
+
     public function getPreviewHeadEndContent()
     {
         return $this->evaluate($this->previewHeadEndContent);
     }
 
-    public function getPreviewBodyAttributes()
+    public function getPreviewBodyAttributes(): string
     {
         $attributes = $this->evaluate($this->previewBodyAttributes);
 
-        return implode(' ', array_map(fn ($key, $value) => "$key=&quot;$value&quot;", array_keys($attributes), $attributes));
+        return implode(' ', array_map(
+            fn ($key, $value) => sprintf(
+                '%s="%s"',
+                htmlspecialchars((string) $key, ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars((string) (is_array($value) ? implode(' ', $value) : $value), ENT_QUOTES, 'UTF-8')
+            ),
+            array_keys($attributes),
+            array_values($attributes)
+        ));
     }
 
     public function getPreviewBodyStartContent()
@@ -313,5 +369,15 @@ class MonacoEditor extends Field
     public function getShowFullScreenToggle()
     {
         return (bool) $this->evaluate($this->showFullScreenToggle);
+    }
+
+    public function getIsBladeLanguage(): bool
+    {
+        return in_array(strtolower($this->getLanguage()), ['blade', 'blade.php'], true);
+    }
+
+    public function getMonacoLanguage(): string
+    {
+        return $this->getIsBladeLanguage() ? 'html' : (string) $this->getLanguage();
     }
 }

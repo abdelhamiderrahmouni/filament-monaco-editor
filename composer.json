@@ -71,10 +71,7 @@
         "laravel": {
             "providers": [
                 "AbdelhamidErrahmouni\\FilamentMonacoEditor\\MonacoEditorServiceProvider"
-            ],
-            "aliases": {
-                "MonacoEditor": "AbdelhamidErrahmouni\\FilamentMonacoEditor\\Facades\\MonacoEditor"
-            }
+            ]
         }
     },
     "minimum-stability": "stable",
