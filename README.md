@@ -47,8 +47,11 @@ return [
         "placeholder-text" => "Your code here...",
         "show-loader" => true,
         "font-size" => "15px",
-        "line-numbers-min-chars" => true,
+        "line-numbers-min-chars" => 3,
         "automatic-layout" => true,
+        "height" => "500px",
+        "min-height" => "80vh",
+        "max-height" => "90vh",
         "default-theme" => "blackboard"
     ],
     "themes" => [
@@ -79,6 +82,22 @@ use AbdelhamidErrahmouni\FilamentMonacoEditor\MonacoEditor;
 
 MonacoEditor::make('content')
             ->language('php'),
+```
+
+The field class must be imported from the package namespace. Do not import the `Facades\MonacoEditor` class; it is not a form field.
+
+Blade templates use HTML highlighting with Blade directives highlighted separately:
+```php
+MonacoEditor::make('template')
+            ->language('blade'),
+```
+
+Customize the editor size with CSS length values:
+```php
+MonacoEditor::make('content')
+            ->height('70vh')
+            ->minHeight('600px')
+            ->maxHeight('90vh'),
 ```
 
 You can change the theme of the editor by using the `theme` method:
@@ -118,7 +137,7 @@ You can Disable preview code functionality by method or in the config
 
 You can show/hide the full screen button by method or in the config
 ```php
-->showFullScreenButton(false)
+->showFullScreenToggle(false)
 # or
 ->hideFullScreenButton()
 ```
