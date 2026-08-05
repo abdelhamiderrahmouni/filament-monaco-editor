@@ -157,31 +157,58 @@
             },
 
             loadMonaco() {
+                const baseUrl = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min';
+
                 if (window.monaco && window.monaco.editor) {
                     return Promise.resolve(window.monaco);
                 }
 
                 if (!window.__fmeMonacoPromise) {
                     window.__fmeMonacoPromise = new Promise((resolve, reject) => {
-                        const baseUrl = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min';
+                        const timeout = setTimeout(() => reject(new Error('Timed out while loading Monaco Editor.')), 15000);
+                        const resolveMonaco = monaco => {
+                            clearTimeout(timeout);
+                            resolve(monaco);
+                        };
+                        const rejectMonaco = error => {
+                            clearTimeout(timeout);
+                            reject(error);
+                        };
+                        let editorModuleRequested = false;
+
                         const loadEditor = () => {
+                            if (editorModuleRequested) {
+                                return;
+                            }
+
                             if (window.monaco && window.monaco.editor) {
-                                resolve(window.monaco);
+                                editorModuleRequested = true;
+                                resolveMonaco(window.monaco);
 
                                 return;
                             }
 
+                            if (typeof window.require !== 'function' || typeof window.require.config !== 'function') {
+                                rejectMonaco(new Error('Monaco Editor loader is unavailable.'));
+
+                                return;
+                            }
+
+                            editorModuleRequested = true;
                             window.require.config({ paths: { vs: `${baseUrl}/vs` } });
-                            const worker = URL.createObjectURL(new Blob([
-                                `self.MonacoEnvironment = { baseUrl: '${baseUrl}' };` +
-                                `importScripts('${baseUrl}/vs/base/worker/workerMain.min.js');`,
-                            ], { type: 'text/javascript' }));
+
+                            if (!window.__fmeMonacoWorkerUrl) {
+                                window.__fmeMonacoWorkerUrl = URL.createObjectURL(new Blob([
+                                    `self.MonacoEnvironment = { baseUrl: '${baseUrl}' };` +
+                                    `importScripts('${baseUrl}/vs/base/worker/workerMain.min.js');`,
+                                ], { type: 'text/javascript' }));
+                            }
 
                             window.MonacoEnvironment = Object.assign({}, window.MonacoEnvironment || {}, {
-                                getWorkerUrl: () => worker,
+                                getWorkerUrl: () => window.__fmeMonacoWorkerUrl,
                             });
 
-                            window.require(['vs/editor/editor.main'], () => resolve(window.monaco), reject);
+                            window.require(['vs/editor/editor.main'], () => resolveMonaco(window.monaco), rejectMonaco);
                         };
 
                         if (typeof window.require === 'function' && typeof window.require.config === 'function') {
@@ -190,7 +217,9 @@
                             return;
                         }
 
-                        let script = document.querySelector('script[data-fme-monaco-loader]');
+                        let script = window.__fmeMonacoLoaderScript ||
+                            document.querySelector('script[data-fme-monaco-loader]') ||
+                            document.querySelector(`script[src="${baseUrl}/vs/loader.min.js"]`);
 
                         if (!script) {
                             script = document.createElement('script');
@@ -199,15 +228,14 @@
                             script.dataset.fmeMonacoLoader = '';
                         }
 
+                        window.__fmeMonacoLoaderScript = script;
+
                         script.addEventListener('load', loadEditor, { once: true });
-                        script.addEventListener('error', () => reject(new Error('Unable to load Monaco Editor.')), { once: true });
+                        script.addEventListener('error', () => rejectMonaco(new Error('Unable to load Monaco Editor.')), { once: true });
 
                         if (!script.isConnected) {
                             document.head.appendChild(script);
                         }
-                    }).catch(error => {
-                        delete window.__fmeMonacoPromise;
-                        throw error;
                     });
                 }
 
