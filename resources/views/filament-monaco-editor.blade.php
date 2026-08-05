@@ -145,7 +145,8 @@
                     this.previewBodyStartContent +
                     value +
                     this.previewBodyEndContent +
-                    '</body>';
+                    // Keep the closing tag split so response middleware cannot inject into this expression.
+                    '<' + '/body>';
             },
 
             showCodePreview() {
